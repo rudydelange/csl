@@ -1,21 +1,32 @@
 % estimate (fine-tune) a parameter in a nonlinear Simulink model
 
 clear all; clc; close all;
-%para = [0.5,0.5,0.5,0.5,0.5];     % "true" parameter value
-% parai = [0.02,0.04,0.05,0.08,0.02];   % initial guess
-%parai = [0.0006,0.0004,-5.6397,-4.8346,1.2361];
-% parai = [0.0354,0.0238,48.8364,212.1712,0.0242]
-parai = [0.01,0.0075,10,10,500];
+parai = [10,10,500,0.9,24,0.004,0.001,0.0002,0.01,0.0075];
+% parai = [10,10,0.01,0.0075];
 
-% x0 = [318;313]; % initial state (voor integratiebereik) 
+% 
+% areahat = 0.0013;      %7.0496e-04;
+% areashat=  2.2836e-04;
+% %tauhat =    30.3393;
+% masshat = 0.0042;
+% emishat = 0.8949;
+% boltz = 5.67e-8;
+% %cphat = 114.609;
+% uhat = 7.545;
+% alpha1hat = 0.0112;
+% alpha2hat = 0.0075;
+% %ushat = 53.7736;
 
-area = 0.001;
-area_s = 0.0002;
-tau = 24;
-m = 0.004;
-emis = 0.9;
+%parai = [10,10,500,0.9,24,0.004,0.001,0.0002,0.01,0.0075];
+% areahat = 0.001;  
+% areashat=  0.0002;
+% tauhat =    24;
+% masshat = 0.004;
+% emishat = 0.9;
 boltz = 5.67e-8;
-Tamb = 18+273;
+% cphat = 500;
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % design input excitation signal
@@ -40,7 +51,7 @@ Tamb = 18+273;
 % ts = 10;    % estimated settling time of the process
 % A = 1;      % amplitude of GBN
 
-data = readtable('exceldata8_wacketijd.xlsx');
+data = readtable('exceldata18.xlsx');
 data = table2array(data);
 U1 = [data(:,5) data(:,1)];
 U2 = [data(:,5) data(:,2)];
@@ -56,17 +67,22 @@ tout = data(:,5);
 h = tout(2)-tout(1);
 y1 = data(:,3)+273.15;
 y2 = data(:,4)+273.15;
-x0 = [y1(1);y2(1)]; % initial state (voor integratiebereik) 
-%x0 = [318;313];
+x0 = [y1(1);y2(1)]; % initial state (voor integratiebereik) & gelijk aan Tamb
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % nonlinear optimization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 OPT = optimset('MaxIter',100,'TolX',1e-8); % options
-lb = [-Inf,-Inf,-Inf,-Inf,-Inf];
-ub = [Inf,Inf,Inf,Inf,Inf];
+
+
+%parai = [10,10,500,0.9,24,0.004,0.001,0.0002,0.01,0.0075];
+%parai = [0.01,10];
+
+lb = [1,10,  100,   0.5, 0.1,0.0001,0.0001,0.00001,0.0001  ,0.0001];
+ub = [20,40,  800,   0.99,50,0.01,0.01,0.001,0.1,0.1];
+
+
 f = @(x)costfun(x,y1,y2); % anonymous function for passing extra input arguments to the costfunction
-%[parahat,fval]= lsqnonlin(f,parai,lb,ub,OPT); % actual optimization
 [parahat,fcost,~,exitflag,output] = lsqnonlin(f,parai,lb,ub,OPT)
-%[para parahat]
-% [x,fval,exitflag,output]  = simulannealbnd(f,parai,lb,ub,OPT)

@@ -3,11 +3,17 @@ function e = costfun(x,y1,y2)
 % x contains the candidate parameters, U is the experimental input signal
 % and y is the experiemental output signal
 
-assignin('base','alpha1hat',x(1));       % assign bhat in workspace
-assignin('base','alpha2hat',x(2));       % assign bhat in workspace
-assignin('base','uhat',x(3));            % assign bhat in workspace
-assignin('base','ushat',x(4));           % assign bhat in workspace
-assignin('base','cphat',x(5));           % assign bhat in workspace
+assignin('base','uhat',x(1));            % assign bhat in workspace
+assignin('base','ushat',x(2));           % assign bhat in workspace
+assignin('base','cphat',x(3));           % assign bhat in workspace
+assignin('base','emishat',x(4));         % assign bhat in workspace
+assignin('base','tauhat',x(5));          % assign bhat in workspace
+assignin('base','masshat',x(6));         % assign bhat in workspace
+assignin('base','areahat',x(7));         % assign bhat in workspace
+assignin('base','areashat',x(8));        % assign bhat in workspace
+assignin('base','alpha1hat',x(9));       % assign bhat in workspace
+assignin('base','alpha2hat',x(10));       % assign bhat in workspace
+
 
 
 
