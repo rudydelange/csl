@@ -27,17 +27,17 @@ boltz = 5.67e-8;
 % cphat = 500;
 
 
-areahat = 0.001;      %7.0496e-04;
-areashat=  0.0002;
-tauhat =    24;
-masshat = 0.004;
-emishat = 0.9;
-boltz = 5.67e-8;
-cphat = 500;
-uhat = 10;
-ushat = 10;
-alpha1hat = 0.01;
-alpha2hat = 0.0075;
+% areahat = 0.001;      %7.0496e-04;
+% areashat=  0.0002;
+% tauhat =    24;
+% masshat = 0.004;
+% emishat = 0.9;
+% boltz = 5.67e-8;
+% cphat = 500;
+% uhat = 10;
+% ushat = 10;
+% alpha1hat = 0.01;
+% alpha2hat = 0.0075;
 
 
 
@@ -64,7 +64,7 @@ alpha2hat = 0.0075;
 % ts = 10;    % estimated settling time of the process
 % A = 1;      % amplitude of GBN
 
-data = readtable('exceldata18.xlsx');
+data = readtable('exceldata20.xlsx');
 data = table2array(data);
 U1 = [data(:,5) data(:,1)];
 U2 = [data(:,5) data(:,2)];
@@ -87,14 +87,14 @@ x0 = [y1(1);y2(1)]; % initial state (voor integratiebereik) & gelijk aan Tamb
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % nonlinear optimization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-OPT = optimset('MaxIter',100,'TolX',1e-8); % options
-
+OPT = optimset('MaxIter',100,'TolX',1e-6); % options
+%OPT.Algorithm = 'levenberg-marquardt';
 
 %parai = [10,10,500,0.9,24,0.004,0.001,0.0002,0.01,0.0075];
 %parai = [0.01,10];
 
-lb = [1,10,  100,   0.5, 0.1,0.0001,0.0001,0.00001,0.0001  ,0.0001];
-ub = [20,40,  800,   0.99,50,0.01,0.01,0.001,0.1,0.1];
+lb = [1,-40,  490,   0.88, 20,0.0001,0.0001,0.00001,0.0001  ,0.0001];
+ub = [20,40,  510,   0.99,30,0.01,0.01,0.001,0.1,0.1];
 
 
 f = @(x)costfun(x,y1,y2); % anonymous function for passing extra input arguments to the costfunction
