@@ -15,8 +15,6 @@ assignin('base','alpha1hat',x(9));       % assign bhat in workspace
 assignin('base','alpha2hat',x(10));       % assign bhat in workspace
 
 
-
-
 sim('nlmodel');                         % simulate nonlinear model using current candidate parameter (LET OP IN NLMODEL MOET HET MET HAT ZIJN)
                                         % the nonlinear model is built on
                                         % top of the real system, but of

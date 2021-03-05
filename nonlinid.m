@@ -2,7 +2,7 @@
 
 clear all; clc; close all;
 parai = [10,10,500,0.9,24,0.004,0.001,0.0002,0.01,0.0075];
-% parai = [10,10,0.01,0.0075];
+% parai = [11.2497   15.0395  501.1581    0.8800   20.0040    0.0047    0.0009    0.0003    0.0096    0.0076];
 
 % 
 % areahat = 0.0013;      %7.0496e-04;
@@ -87,14 +87,14 @@ x0 = [y1(1);y2(1)]; % initial state (voor integratiebereik) & gelijk aan Tamb
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % nonlinear optimization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-OPT = optimset('MaxIter',100,'TolX',1e-6); % options
+OPT = optimset('MaxIter',100,'TolX',1e-4); % options
 %OPT.Algorithm = 'levenberg-marquardt';
 
 %parai = [10,10,500,0.9,24,0.004,0.001,0.0002,0.01,0.0075];
 %parai = [0.01,10];
 
-lb = [1,-40,  490,   0.88, 20,0.0001,0.0001,0.00001,0.0001  ,0.0001];
-ub = [20,40,  510,   0.99,30,0.01,0.01,0.001,0.1,0.1];
+lb = [9,-40,  490,   0.9, 20,0.0001,0.0001,0.00001,0.0001  ,0.0001];
+ub = [11,40,  510,   0.901,25,0.01,0.01,0.001,0.1,0.1];
 
 
 f = @(x)costfun(x,y1,y2); % anonymous function for passing extra input arguments to the costfunction
