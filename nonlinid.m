@@ -27,6 +27,19 @@ boltz = 5.67e-8;
 % cphat = 500;
 
 
+areahat = 0.001;      %7.0496e-04;
+areashat=  0.0002;
+tauhat =    24;
+masshat = 0.004;
+emishat = 0.9;
+boltz = 5.67e-8;
+cphat = 500;
+uhat = 10;
+ushat = 10;
+alpha1hat = 0.01;
+alpha2hat = 0.0075;
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % design input excitation signal
