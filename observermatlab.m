@@ -31,9 +31,11 @@ P = (lambda + 1)^4;
 % [k1,k2,k3,k4,k5,k6,k7,k8] = solve(eq1_lambda2 == 1,eq1_lambda == 2, eq1_rest == 1, k1,k2,k3,k4,k5,k6,k7,k8);
 % gives K
 
-P = [-1];
+P = [-1.1, -1.2, -1.3, -1.4];
 
-acker(phi,C.',P)
+%acker(phi,C,P)
+L = place(phi.',C.',P).'
+
 %K_new = [k1, k2; k3, k4; k5, k6; k7, k8]
 %% Observer
 % returns xhat
