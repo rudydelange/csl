@@ -28,3 +28,4 @@ observability = length(phi) - rank(ohm); % If zero --> observable
 %% Observer
 % returns xhat
 sim('observermodel')
+
