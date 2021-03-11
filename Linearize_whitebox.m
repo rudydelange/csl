@@ -17,7 +17,7 @@ Tamb1 = 273.15+19.4037+7;
 Tamb2 = 273.15+18.4262+6.5;
 
 %% Data from experiment 
-data = readtable('exceldata21.xlsx');
+data = readtable('exceldata22.xlsx');
 data = table2array(data);
 tout = data(:,5);
 
