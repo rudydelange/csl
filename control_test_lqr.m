@@ -7,17 +7,17 @@ load('matrices.mat');
 whitebox_continuous = d2c(Ad,'zoh');
 
 %% Load Data
-% temp_dat1 = xlsread('temperature_correct_1_v2.xlsx'); % Training set
-% temp_dat2 = xlsread('temperature_correct_2_v2.xlsx'); % Validation set
-% 
-% % Segment heater input from data
-% heater_input_1 = temp_dat1(:,1:2);
-% heater_input_2 = temp_dat2(:,1:2);
-% 
-% % Segment time vector from data
-% time_1 = temp_dat1(:,5);
-% time_2 = temp_dat2(:,5);
-% ts = time_1(2,:); % sample time data
+temp_dat1 = xlsread('temperature_correct_1_v2.xlsx'); % Training set
+temp_dat2 = xlsread('temperature_correct_2_v2.xlsx'); % Validation set
+
+% Segment heater input from data
+heater_input_1 = temp_dat1(:,1:2);
+heater_input_2 = temp_dat2(:,1:2);
+
+% Segment time vector from data
+time_1 = temp_dat1(:,5);
+time_2 = temp_dat2(:,5);
+ts = time_1(2,:); % sample time data
 
 % Segment sample time
 [A,B,C,D,Ts] = ssdata(Ad);
@@ -40,12 +40,14 @@ reference(length(seq_1)+1:length(seq_1)+length(lin_50),:) = [lin_50.', lin_50.']
 reference(length(seq_1)+length(lin_50)+1:end,:) = [wave_h1(43:1290).', wave_h2(43:1290).'];
 plot(reference);
 %% Run Controller Over System
-% feedin = [1 2] % Feed in data
-% feedout = [1 2] % Feed out data
 % Create feedback loop
-sys_pp_control = feedback(whitebox_continuous, syscl_lqr_scaled);
-sys_pp_control = minreal(sys_pp_control); % minimum realization and pole-zero cancellation
-sys_pp_control_discrete = c2d(sys_pp_control, ts, 'zoh'); % discrete time controller
+% sys_pp_control = feedback(whitebox_continuous, syscl_lqr_scaled);
+% sys_pp_control = minreal(sys_pp_control); % minimum realization and pole-zero cancellation
+% sys_pp_control_discrete = c2d(sys_pp_control, Ts, 'zoh'); % discrete time controller
+syscl_lqr_discrete = c2d(syscl_lqr_scaled, Ts, 'zoh'); % discrete time controller
 % Simulate time response
-timevector = 
-lsim(sys_pp_control_discrete, reference, length(reference), [0,0,20,20,0,0,20,20])
+timevector = [(1:Ts:length(reference)+1).', (1:Ts:length(reference)+1).'];
+figure(1);
+lsim(syscl_lqr_discrete, "r", reference, timevector(:,1)); grid on; 
+legend('Output Heater 1', 'Output Heater 2', 'Location','southeast', 'Interpreter', 'Latex');
+% lsim(syscl_lqr_discrete, heater_input_1, time_1)
