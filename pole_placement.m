@@ -5,9 +5,9 @@ close all; clear all; clc;
 load('matrices.mat');
 
 %% State
-% Create state space object
-sys = Ad;
-% Retrieve state matrices from BJ model
+% Create continuous state space object
+sys = d2c(Ad,'zoh');
+% Retrieve state matrices from whitebox model
 A = sys.A;
 B = sys.B;
 C = sys.C;
@@ -18,6 +18,10 @@ E = eig(A);
 P = [-0.98 -0.98 -0.99 -0.99];
 % Solve for K using pole placement
 K = place(A, B, P);
+
+% Check for Controllability
+Contr = ctrb(A,B);
+Contr_check = length(A) - rank(Contr); % It is full rank thus controllable
 
 % Check for closed loop eigenvalues
 Acl = A - B*K;
@@ -37,6 +41,9 @@ Kdc = dcgain(syscl);
 Kr = inv(Kdc); % inverse of the DC gain that can be used for scaling the system
 
 % Create scaled input closed
-syscl_scaled = ss(Acl, B*Kr, C, D);
+syscl_pp_scaled = ss(Acl, B*Kr, C, D);
 figure(3); 
-step(syscl_scaled);
+step(syscl_pp_scaled);
+
+%% Save Workspace
+save('pole_placement.mat');

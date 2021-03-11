@@ -5,8 +5,8 @@ close all; clear all; clc;
 load('matrices.mat');
 
 %% State
-% Create state space object
-sys = Ad;
+% Create continuous state space object
+sys = d2c(Ad,'zoh');
 % Retrieve state matrices from whitebox model
 A = sys.A;
 B = sys.B;
@@ -35,12 +35,18 @@ Ecl = eig(Acl);
 syscl = ss(Acl, B, C, D);
 
 % Solve for Kr
-Kdc = dcgain(syscl)
+Kdc = dcgain(syscl);
 Kr = inv(Kdc); % Inverse of dcgain for scaling
 
 % Scaled Close Loop System
-syscl_scaled = ss(Acl, B*Kr, C, D);
+syscl_lqr_scaled = ss(Acl, B*Kr, C, D);
+
+% Feedforward Gain G
+% G = -inv(C*inv(A-B*K)*B);
 
 % Run
 figure(1);
-step(syscl_scaled);
+step(syscl_lqr_scaled);
+
+%% Save Workspace
+save('lqr_whitebox.mat');
