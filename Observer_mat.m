@@ -5,13 +5,15 @@ clc
 %% Discrete Matrices
 load('matrices.mat')
 
-phi = A; % A matrix discrete
-gamma = B;    % B matrix discrete
-C = C;
-D = D;
+phi = Ad.A; % A matrix discrete
+gamma = Ad.B;    % B matrix discrete
+C = Ad.C;
+D = Ad.D;
 
 %% Pole Placement
-P = [-1, -1.1, -1, -1.1];
+%P = [-1, -1.1, -1, -1.1];
+P = [-0.1, -0.1, -0.2, -0.2];
+
 
 % Solve observer gain K for desired Poles P
 K = place(phi.',C.',P).';
