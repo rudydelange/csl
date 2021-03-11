@@ -7,6 +7,8 @@ load('matrices.mat');
 %% State
 % Create continuous state space object
 sys = d2c(Ad,'zoh');
+% Create discrete state space object
+% sys = Ad
 % Retrieve state matrices from whitebox model
 A = sys.A;
 B = sys.B;
