@@ -30,6 +30,11 @@ x0 = [y1(1);y2(1)];  %Initial guess
 [A,B,C,D] = linmod('nlmodelLIN', [300 300 300 300], [35 35]);
 syst = ss(A,B,C,D);
 
+%% Change order of continous matrcies
+A([1,5,2,6,3,7,4,8,9,13,10,14,11,15,12,16]) = A([11,15,12,16,9,13,10,14,3,7,4,8,1,5,2,6]);
+B([1,5,2,6,3,7,4,8]) = B([3,7,4,8,1,5,2,6]);
+C([1,3,2,4,5,7,6,8]) = C([5,7,6,8,1,3,2,4]);
+
 %% Create a discrete state-space model 
 Ad = c2d(syst,h,'zoh');
 
