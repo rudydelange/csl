@@ -5,20 +5,6 @@ close all; clear all; clc;
 load('matrices.mat');
 % Convert discrete SS to continuous
 whitebox_continuous = d2c(Ad,'zoh');
-
-%% Load Data
-temp_dat1 = xlsread('temperature_correct_1_v2.xlsx'); % Training set
-temp_dat2 = xlsread('temperature_correct_2_v2.xlsx'); % Validation set
-
-% Segment heater input from data
-heater_input_1 = temp_dat1(:,1:2);
-heater_input_2 = temp_dat2(:,1:2);
-
-% Segment time vector from data
-time_1 = temp_dat1(:,5);
-time_2 = temp_dat2(:,5);
-ts = time_1(2,:); % sample time data
-
 % Segment sample time
 [A,B,C,D,Ts] = ssdata(Ad);
 
@@ -38,16 +24,13 @@ reference = zeros(length(seq_1)+length(seq_2),2);
 reference(1:length(seq_1),:) = [seq_1.',seq_1.'];
 reference(length(seq_1)+1:length(seq_1)+length(lin_50),:) = [lin_50.', lin_50.'];
 reference(length(seq_1)+length(lin_50)+1:end,:) = [wave_h1(43:1290).', wave_h2(43:1290).'];
-plot(reference);
-%% Run Controller Over System
-% Create feedback loop
-% sys_pp_control = feedback(whitebox_continuous, syscl_lqr_scaled);
-% sys_pp_control = minreal(sys_pp_control); % minimum realization and pole-zero cancellation
-% sys_pp_control_discrete = c2d(sys_pp_control, Ts, 'zoh'); % discrete time controller
+figure(1);
+plot(reference); legend('Reference Heater 1', 'Reference Heater 2')
+%% Run Closed Loop System with Reference as Input
 syscl_lqr_discrete = c2d(syscl_lqr_scaled, Ts, 'zoh'); % discrete time controller
 % Simulate time response
 timevector = [(1:Ts:length(reference)+1).', (1:Ts:length(reference)+1).'];
-figure(1);
+figure(2);
 lsim(syscl_lqr_discrete, "r", reference, timevector(:,1)); grid on; 
 legend('Output Heater 1', 'Output Heater 2', 'Location','southeast', 'Interpreter', 'Latex');
-% lsim(syscl_lqr_discrete, heater_input_1, time_1)
+ylim([250, 290]);

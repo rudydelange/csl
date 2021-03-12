@@ -22,11 +22,11 @@ Contr = ctrb(A,B);
 Contr_check = length(A) - rank(Contr); % It is full rank thus controllable
 
 % Control Law (LQR)
-Q = [100 0 0 0;   % Penalize bad performance
-     0 100 0 0;
-     0 0 1 0;
-     0 0 0 1];
-R = [10 0; 0 10];  % Penalize effort
+Q = [1 0 0 0;   % Penalize bad performance
+     0 1 0 0;
+     0 0 350 0;
+     0 0 0 350];
+R = [1 0; 0 1];  % Penalize effort
 K = lqr(A,B,Q,R); % Create Gain Matrix K (LQR)
 
 % Check Closed Loop Eigenvalues;
@@ -35,6 +35,8 @@ Ecl = eig(Acl);
 
 % Close Loop System
 syscl = ss(Acl, B, C, D);
+figure(2);
+step(syscl)
 
 % Solve for Kr
 Kdc = dcgain(syscl);
@@ -48,7 +50,7 @@ syscl_lqr_scaled = ss(Acl, B*Kr, C, D);
 
 % Run
 figure(1);
-step(syscl_lqr_scaled);
+step(syscl_lqr_scaled); % Closed-loop system (Continuous time)
 
 %% Save Workspace
 save('lqr_whitebox.mat');
