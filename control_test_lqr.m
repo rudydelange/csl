@@ -61,3 +61,9 @@ plot(reference(:,2), ...
 grid on; set(gca, 'Fontsize', 12); legend('Output Heater 1', 'Output Heater 2', 'Reference Temperature Heater 1', 'Reference Temperature Heater 2', 'Location','southeast', 'Interpreter', 'Latex');
 xlabel('Temperature [K]', 'Interpreter', 'Latex'); ylabel('Time [s]', 'Interpreter', 'Latex');
 ylim([255, 290]); hold off;
+
+%% Compute U
+
+U_ref = (reference(3, :).*Kr);
+U_feed = (K.' .* [300, 300, 300, 300; 300, 300, 300, 300].');
+U_input = U_ref - U_feed;
