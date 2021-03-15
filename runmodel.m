@@ -50,6 +50,20 @@ plot(sim_output_data);
 xlabel('Time [s]', 'Interpreter', 'Latex'); ylabel('Temperature [K]', 'Interpreter', 'Latex');
 legend('Reference Heater 1', 'Reference Heater 1', 'Output Heater 1', 'Output Heater 2', 'Interpreter', 'Latex');
 
+% Filter Output Data -> Set before scope 3 directly after output y of simulated process
+time_series_mean = mean(sim_output_data); % Retrieve mean assuming zero mean
+interval = [0.01 5]; % Specify filter interval in Hz
+time_series_notch = idealfilter(sim_output_data, interval, 'notch'); % Apply notch filter
+time_series_notch_mean = time_series_notch + time_series_mean; % Return mean
+% Plot Filtered output data
+figure(2);
+title('Reference versus Filtered Ouput Temperature', 'Interpreter', 'Latex');
+plot(ref1); hold on; grid on;
+plot(ref1);
+plot(time_series_notch_mean);
+legend('Reference Heater 1', 'Reference Heater 1', 'Filtered Output Heater 1', 'Filtered Output Heater 2', 'Interpreter', 'Latex');
+xlabel('Time [s]', 'Interpreter', 'Latex'); ylabel('Temperature [K]', 'Interpreter', 'Latex');
+
 % Retrieve Simulink Data
  function myfunc
     a = sim('observer_controller_model', 'SimulationMode', 'normal')
