@@ -7,7 +7,7 @@ B = B;
 C = C;
 D = D;
 
-Ecl = eig(A)
+Ecl = eig(A);
 
 cont_sys = ss(A,B,C,D);
 
@@ -19,7 +19,7 @@ cont_sys = ss(A,B,C,D);
 Contr = ctrb(A,B);
 Contr_check = length(A) - rank(Contr); % It is full rank thus controllable
 
-[wn,zeta,P] = damp(cont_sys)
+[wn,zeta,P] = damp(cont_sys);
 
 % P = [-0.0283 -0.0117 -0.0212 -0.0088];
 
@@ -27,21 +27,21 @@ Contr_check = length(A) - rank(Contr); % It is full rank thus controllable
 %P = [-0.98 -0.98 -0.99 -0.99]; %Rand van stabiliteit --> daarom oscilleren
 
 
-L  = place(A,B,P)
+L  = place(A,B,P);
 
 Acl = A-B*L;
-Ecl = eig(Acl)
+Ecl = eig(Acl);
 
 syscl = ss(Acl,B,C,D);
-figure(1)
-step(syscl)
+figure(1);
+step(syscl);
 
 Kdc = dcgain(syscl);
-Lr = inv(Kdc)
+Lr = inv(Kdc);
 
 figure(2)
 syscl_scaled = ss(Acl,B*Lr,C,D);
-step(syscl_scaled)
+step(syscl_scaled);
 
 filename = 'LandLr.mat';
-save('LandLr.mat','L','Lr')
+save('LandLr.mat','L','Lr');

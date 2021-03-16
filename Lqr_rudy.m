@@ -34,12 +34,12 @@ L = lqr(A,B,Q,R); % Create Gain Matrix K (LQR)
 
 % Check Closed Loop Eigenvalues;
 Acl = A - B*L;
-Ecl = eig(Acl)
+Ecl = eig(Acl);
 
 % Close Loop System
 syscl = ss(Acl, B, C, D);
 figure(2);
-step(syscl)
+step(syscl);
 
 % Solve for Kr
 Ldc = dcgain(syscl);
@@ -57,7 +57,7 @@ step(syscl_lqr_scaled); % Closed-loop system (Continuous time)
 
 %% Save Workspace
 filename = 'LQR_L_LR.mat';
-save('LQR_L_LR.mat','L','Lr')
+save('LQR_L_LR.mat','L','Lr');
 
 %% Compute U
 % 
