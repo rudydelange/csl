@@ -29,8 +29,27 @@ for i=1:duration
 end
 ref1=u1; 
 figure(1); plot(ref1); hold on; plot(ref1); 
-ref = [tout,ref1.',ref1.'];
+ref = [tout,ref1.',ref1.'-3];
 
 
 sim('observer_controller_model')
+
+%% Save Output Simulink & Filter Data
+sim_output = ans;
+
+% Plot Reference versus Output Data
+sim_output_data = get(sim_output, 'simout');
+figure(1); grid on;
+title('Reference versus Ouput Temperature', 'Interpreter', 'Latex');
+plot(sim_output_data);
+xlabel('Time [s]', 'Interpreter', 'Latex'); ylabel('Temperature [K]', 'Interpreter', 'Latex');
+legend('Reference Heater 1', 'Reference Heater 1', 'Output Heater 1', 'Output Heater 2', 'Interpreter', 'Latex');
+
+
+% Retrieve Simulink Data
+ function myfunc
+    a = sim('observer_controller_model', 'SimulationMode', 'normal')
+    b = a.get('simout')
+    assignin('base', 'b', b);
+ end
 

@@ -26,8 +26,34 @@ y1 = data(:,3)+273.15;
 y2 = data(:,4)+273.15;
 x0 = [y1(1);y2(1)];  %Initial guess
 
+% ref1 = [tout, (15)*ones(2500,1)];
+% ref2 = [tout, (15)*ones(2500,1)];
+
+% duration = 2500; % seconds
+% ref1 = randi([10 20]);
+% duration1 = randi([200 750]);
+% j1 = 1; j2 = 1;
+% for i=1:duration
+%     if j1 <= duration1
+%         u1(i) = ref1;
+%         j1 = j1 + 1;
+%     else
+%         j1 = 1;
+%         ref1 = randi([10 20]);
+%         duration1 = randi([200 750]);
+%         u1(i) = ref1;
+%     end  
+% end
+% ref1=u1; 
+% figure(1); plot(ref1); hold on; plot(ref1); 
+% ref11 = [tout,ref1.'];
+% ref22 = [tout,ref1.'];
+% 
+% 
+%  sim('nlmodelLIN')
+
 %% Linearization of non-linear continuous time model at operating point: [300 300 300 300], [35 35]
-[A,B,C,D] = linmod('nlmodelLIN', [300 300 300 300], [35 35]);
+[A,B,C,D] = linmod('nlmodelLIN', [3.101097756283022e+02 3.077085609758263e+02 3.101097756283022e+02 3.077085609758263e+02], [15 15]);
 syst = ss(A,B,C,D);
 
 %% Change order of continuous matrices 

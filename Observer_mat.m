@@ -5,10 +5,10 @@ clc
 %% Discrete Matrices
 load('matrices.mat')
 
-phi = A; % 
-gamma = B;    
-C = C;
-D = D;
+phi = A % 
+gamma = B   
+C = C
+D = D
 
 % phi = Ad.A; % A matrix discrete
 % gamma = Ad.B;    % B matrix discrete
@@ -27,7 +27,7 @@ P = [-0.49, -0.491, -0.49, -0.491]; %Nice for LQR, nice steady state, but high o
 % P = [-0.049, -0.0491, -0.0049, -0.00491];
 %P = exp(P.*h);%poles in z-domain
 
-P = 8*[-0.005418417683751 -0.011367790266523 -0.040915190992112 -0.040915190992112]
+P = 5*[-0.005418417683751 -0.011367790266523 -0.040915190992112 -0.040915190992112]
 
 % Solve observer gain K for desired Poles P
 K = place(phi.',C.',P).'
@@ -45,8 +45,8 @@ U1 = [data(:,5) data(:,1)];
 U2 = [data(:,5) data(:,2)];
 
 
-y1 = [data(:,5) data(:,3)+273.15];
-y2 = [data(:,5) data(:,4)+273.15];
+y1 = [data(:,5) data(:,3)+273.15 - x0(1)];
+y2 = [data(:,5) data(:,4)+273.15 - x0(2)];
 tout = data(:,5);
 h = tout(2)-tout(1);
 
