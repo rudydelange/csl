@@ -2,15 +2,15 @@ close all; clear all; clc
 
 load('matrices.mat')          %These are the continuous matrices (A,B,C,D) and a discrete system (Ad.A,Ad.B,Ad.C,Ad.D)
 load('matrices_observer.mat') %Matrices for observer: Phi, gamma, C, D and gain K
-% load('LandLr.mat'); %         %L and Lr for controller using pole placement
+%load('LandLr.mat'); %         %L and Lr for controller using pole placement
 load('LQR_L_LR.mat');        %L and Lr for controller using LQR
 
 
 
 % ref = [tout, (30+273.15)*ones(2500,1), (30+273.15)*ones(2500,1)];
-init_temp = 30+273.15;
+init_temp = 20+273.15;
 
-ref = [tout, (50+273.15)*ones(2500,1), (50+273.15)*ones(2500,1)];
+ref = [tout, (40+273.15)*ones(2500,1), (35+273.15)*ones(2500,1)];
 
 duration = 2500; % seconds
 ref1 = randi([25+273 50+273]);
@@ -28,7 +28,9 @@ for i=1:duration
     end  
 end
 ref1=u1; 
+figure(1); plot(ref1); hold on; plot(ref1); 
 ref = [tout,ref1.',ref1.'-3];
+
 
 sim('observer_controller_model')
 
@@ -52,3 +54,4 @@ legend('Reference Heater 1', 'Reference Heater 1', 'Output Heater 1', 'Output He
     b = a.get('simout')
     assignin('base', 'b', b);
  end
+
