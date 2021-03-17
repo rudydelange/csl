@@ -2,8 +2,8 @@ close all; clear all; clc
 
 load('matrices.mat')          %These are the continuous matrices (A,B,C,D) and a discrete system (Ad.A,Ad.B,Ad.C,Ad.D)
 load('matrices_observer.mat') %Matrices for observer: Phi, gamma, C, D and gain K
-%load('LandLr.mat'); %         %L and Lr for controller using pole placement
-load('LQR_L_LR.mat');        %L and Lr for controller using LQR
+load('LandLr.mat'); %         %L and Lr for controller using pole placement
+% load('LQR_L_LR.mat');        %L and Lr for controller using LQR
 
 
 
