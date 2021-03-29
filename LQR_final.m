@@ -28,8 +28,8 @@ Ecl = eig(Acl);
 
 % Close Loop System
 syscl = ss(Acl, B, C, D);
-figure(2);
-step(syscl)
+% figure(2);
+% step(syscl)
 
 % Solve for Kr
 Ldc = dcgain(syscl);
@@ -42,8 +42,13 @@ syscl_lqr_scaled = ss(Acl, B*Lr, C, D);
 % G = -inv(C*inv(A-B*K)*B);
 
 % Run
-figure(1);
-step(syscl_lqr_scaled); % Closed-loop system (Continuous time)
+% Create step response plot of unscaled and scaled system
+figure(1); grid on;
+set(gcf, 'Position', [600, 400, 600, 500]);
+step(syscl); hold on;
+step(syscl_lqr_scaled);  title('Step Response of Closed-Loop System (LQR)', 'Interpreter', 'Latex');
+legend('Unscaled Response', 'Scaled', 'Interpreter', 'Latex', 'Location', 'SouthEast');
+set(gca, 'Fontsize', 12); xlabel('Time', 'Interpreter', 'Latex'); ylabel('Amplitude', 'Interpreter', 'Latex');
 
 %% Save Workspace
 save('L_Lr_LQR_final.mat','L','Lr')
