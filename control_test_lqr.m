@@ -64,6 +64,6 @@ ylim([255, 290]); hold off;
 
 %% Compute U
 
-U_ref = (reference(3, :).*Kr);
-U_feed = (K.' .* [300, 300, 300, 300; 300, 300, 300, 300].');
-U_input = U_ref - U_feed;
+%U_ref = (reference(3, :).*Kr);
+%U_feed = (K.' .* [300, 300, 300, 300; 300, 300, 300, 300].');
+%U_input = U_ref - U_feed;
