@@ -50,7 +50,7 @@ As we most likely do not want to recreate all black-box models, these can be eas
 5. For importing the models &#8594; ```Import models``` &#8594; ```Import ...``` &#8594; choose one of the ```2x2 idpoly``` objects found in your workspace (which are loaded in with ```blackboxidentification.mat```) **Note** that the structure of the black-box model is explained with the following example &#8594; ```bj_7th_lsqnonlin``` means that it is a Box-Jenkins 7th order model using ```lsqnonlin``` (Trust-Region Reflective) as ```Iteration Options...```.
 6. Drag the ```h12_validation1``` validation data set to the ```Validation Data``` window &#8594; choose the black-box models that you want to evaluate &#8594; click on ```Model output``` &#8594; now you should see the model output plotted against the validation data and the fit of said black-box model.
 
-## Controller validation
+## Controller Validation on White-Box model with State-Observer using Reference Tracking
 The controller is initially validated on the white-box model with state observer. This is done in the file ```runmodel_simulated.m```. The script creates a random reference temperature from ```line 23``` to ```line 42```, which is fed into ```Simulink``` and run. ```Simulink```'s output as a response to the inputted reference temperature is saved to the ```MATLAB``` workspace in ```line 48``` to ```line 52``` afterwards . The ```Simulink``` output is then plotted against the reference temperature from ```line 56``` to ```line 57```.
 
 ## Observer validation
@@ -66,9 +66,6 @@ $ pole_placement.m
 $ observer_matlab.m
 ```
 
-
-### Running the white-box model for reference tracking
-blablabla
 #### To execute the reference tracking with the white-box model run: 
 ```
 $ Linearize_whitebox.m
