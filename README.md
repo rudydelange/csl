@@ -72,9 +72,9 @@ $ Linearize_whitebox.m
 $ pole_placement.m
 $ LQR.m
 $ observer_matlab.m
-$ runmodel_arduino.m
+$ runmodel_simulated.m
 ```
-
+**Note** that ```line 7``` loads in the pole placement controller & ```line 8``` the LQR controller. Thus one or the other has to be commented out (depending which controller you want to use).
 
 ## Running the TCLab for reference tracking
 To execute the reference tracking with the TCLab, the *runmodel_arduino.m* file is used. This file is linked to a Simulink file named *full_model_arduino.slx*. The *runmodel_arduino.m* file needs data from several files to be able to run. It needs the state-space matrices from the *Linearize_whitebox.m* file, the observer gain matrix K from the *observer_matlab.m* file, the controller gain matrices L and Lr from the pole placement controller file named *pole_placement.m* and the controller gain matrices L and Lr from the LQR controller file named *LQR.m*. 
