@@ -6,7 +6,6 @@ This file explains how to run the different Matlab scripts
 * Black-box identification
 * Observer validation
 * Controller validation
-* Running the white-box model for reference tracking
 * Running the TCLab for reference tracking
 
 
