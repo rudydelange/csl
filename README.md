@@ -1,11 +1,22 @@
 This file explains how to run the different Matlab scripts
 
 ## The scripts can be devided into the following sections:
+* Experiment
 * White-box identification
 * Black-box identification
 * Observer validation
 * Controller validation
 * Running the TCLab for reference tracking
+
+
+
+## Experiment
+Heater inputs are given to the TCLab obtain the sensor data for white-box and black-box identification. The file used for this is named *experiment.m*.
+### To run the experiment script run: 
+```
+$ experiment.m
+```
+
 
 
 ## White-box identification
