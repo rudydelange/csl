@@ -21,7 +21,12 @@ $ experiment.m
 
 
 ## White-box identification
-blabla
+The White-box parameter estimation exists out of two Matlab scripts, a Simulink model and two excel files, named respectively *nonlinid.m*, *costfun.m*, *nlmodel.slx*, *exceldata20.xlsx* and *exceldata21.xlsx*. The *nonlinid.m* file contains the non-linear optimization script and *costfun.m* the cost function to be minimized. The *nlmodel.slx* file contains the White-box model and *exceldata20.xlsx*, *exceldata21.xlsx* contain respectively the training data set and validation data set from the experiment. 
+
+#### To run the White-box parameter estimation script run: 
+```
+$ nonlinid.m
+```
 
 
 
