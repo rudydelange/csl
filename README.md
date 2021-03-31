@@ -6,6 +6,7 @@ This file explains how to run the different Matlab scripts
 * Black-box identification
 * Observer validation
 * Controller validation
+* Running the white-box model for reference tracking
 * Running the TCLab for reference tracking
 
 
@@ -43,6 +44,17 @@ $ pole_placement.m
 $ observer_matlab.m
 ```
 
+
+### Running the white-box model for reference tracking
+blablabla
+#### To execute the reference tracking with the white-box model run: 
+```
+$ Linearize_whitebox.m
+$ pole_placement.m
+$ LQR.m
+$ observer_matlab.m
+$ runmodel_arduino.m
+```
 
 
 ## Running the TCLab for reference tracking
